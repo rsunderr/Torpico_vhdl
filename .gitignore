@@ -1,0 +1,5 @@
+# Ignore the contents of any folder starting with Osvvm
+**/Osvvm*/
+
+# Ignore the contents of any folder starting with Torpico_vhdl
+**/Torpico_vhdl*/
