@@ -82,10 +82,10 @@ begin
     -- Stimulus
     --------------------------------------------------------------------
     stim_proc : process
-            variable t_us       : integer   := 0;
-            variable t_start    : time      := 0 ns;
-            variable t_end      : time      := 0 ns;
-            variable t_gap      : time      := 2 ms;
+        variable t_us       : integer   := 0;
+        variable t_start    : time      := 0 ns;
+        variable t_end      : time      := 0 ns;
+        variable t_gap      : time      := 2 ms;
     begin
         SetLogEnable(INFO, TRUE);
         SetLogEnable(PASSED, TRUE);
@@ -100,7 +100,7 @@ begin
         tb_rst_n <= '1';
         set_pulse_us(tb_pulse_us, 0);
 
-        wait for 10 * CLK_PERIOD;
+        wait for 1 ms;
 
         ----------------------------------------------------------------
         -- Test 0: Disabled
@@ -113,9 +113,9 @@ begin
         wait until tb_pwm_sig = '1' for 1 ms;
         wait for 0 ns;
         if tb_pwm_sig = '0' then
-            AffirmIf(TRUE, "TEST 0 PASSED, Signal stayed low during disable period");
+            AffirmIf(TRUE,  "NOMINAL:    TEST 0 PASSED, Signal stayed low during disable period");
         else
-            AffirmIf(FALSE, "TEST 0 FAILED, Signal went high during disable period");
+            AffirmIf(FALSE, "NOMINAL:    TEST 0 FAILED, Signal went high during disable period");
         end if;
 
         ----------------------------------------------------------------
@@ -130,17 +130,17 @@ begin
         wait until tb_pwm_sig = '1' for 1 ms;
         wait for 0 ns;
         if tb_pwm_sig = '0' then
-            AffirmIf(TRUE, "TEST 1 PASSED, Signal stayed low when pulse_us = 0");
+            AffirmIf(TRUE,  "NOMINAL: TEST 1 PASSED, Signal stayed low when pulse_us = 0");
         else
-            AffirmIf(FALSE, "TEST 1 FAILED, Signal went high when pulse_us = 0");
+            AffirmIf(FALSE, "NOMINAL: TEST 1 FAILED, Signal went high when pulse_us = 0");
         end if;
 
         ----------------------------------------------------------------
         -- Test 2: Pulse Width 1000
         ----------------------------------------------------------------
         t_us := 1000;
-        for i in 2 to 5 loop
-            Log( "Test 2: Pulse width set to " & integer'image(t_us) & ", Iteration " & integer'image(i), INFO);
+        for i in 2 to 6 loop
+            Log( "NOMINAL: TEST " & integer'image(i) & ": Pulse width set to " & integer'image(t_us), INFO);
             tb_en <= '1';
             t_us := t_us + 500;
             set_pulse_us(tb_pulse_us, t_us);
@@ -151,15 +151,15 @@ begin
             wait until tb_pwm_sig = '0' for t_us * 1 us + TOLERANCE;
             t_end := now;
             if t_end - t_start >= t_us * 1 us - TOLERANCE and t_end - t_start <= t_us * 1 us + TOLERANCE then
-                AffirmIf(TRUE, "TEST 2 PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
+                AffirmIf(TRUE,  "NOMINAL: TEST " & integer'image(i) & " PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
             else
-                AffirmIf(FALSE, "TEST 2 FAILED, Signal stayed high for incorrect duration when pulse_us = " & integer'image(t_us));
+                AffirmIf(FALSE, "NOMINAL: TEST " & integer'image(i) & " FAILED, Signal stayed high for incorrect duration when pulse_us = " & integer'image(t_us));
             end if;
 
             wait for t_gap;
         end loop;
 
-        wait for 5 ms;
+        wait for 1 ms;
 
 
         ----------------------------------------------------------------

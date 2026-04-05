@@ -82,9 +82,9 @@ begin
     -- Stimulus
     --------------------------------------------------------------------
     stim_proc : process
-            variable t_us       : integer   := 0;
-            variable t_start    : time      := 0 ns;
-            variable t_end      : time      := 0 ns;
+        variable t_us       : integer   := 0;
+        variable t_start    : time      := 0 ns;
+        variable t_end      : time      := 0 ns;
     begin
         SetLogEnable(INFO, TRUE);
         SetLogEnable(PASSED, TRUE);
@@ -99,34 +99,23 @@ begin
         tb_rst_n <= '1';
         set_pulse_us(tb_pulse_us, 0);
 
-        wait for 10 * CLK_PERIOD;
+        wait for 1 ms;
 
         ----------------------------------------------------------------
         -- Test 2: Pulse Width 1000
         ----------------------------------------------------------------
         t_us := 1000;
-        for i in 2 to 5 loop
-            Log( "Test 2: Pulse width set to " & integer'image(t_us) & ", Iteration " & integer'image(i), INFO);
-            tb_en <= '1';
-            t_us := t_us + 500;
+        tb_en <= '1';
+
+        for i in 0 to 4 loop
+            Log( "RAPID: TEST " & integer'image(i) & ": Pulse width set to " & integer'image(t_us), INFO);
             set_pulse_us(tb_pulse_us, t_us);
+            
+            t_us := t_us + 500;
+            wait for t_us * 0.5 us;
 
-            -- make sure output signal goes high at some point after fully enabled
-            wait until tb_pwm_sig = '1' for t_us * 1 us + TOLERANCE;
-            t_start := now;
-            wait until tb_pwm_sig = '0' for t_us * 1 us + TOLERANCE;
-            t_end := now;
-            if t_end - t_start >= t_us * 1 us - TOLERANCE and t_end - t_start <= t_us * 1 us + TOLERANCE then
-                AffirmIf(TRUE, "TEST 2 PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
-            else
-                AffirmIf(FALSE, "TEST 2 FAILED, Signal stayed high for incorrect duration when pulse_us = " & integer'image(t_us));
-            end if;
-
-            --wait for (t_us / 2) * 1 us;
         end loop;
-
-        wait for 5 ms;
-
+        wait for 1 ms;
 
         ----------------------------------------------------------------
         -- Done
@@ -136,6 +125,41 @@ begin
         EndOfTestReports;
         stop;
         wait;
+    end process;
+    
+    --------------------------------------------------------------------
+    -- Response
+    --------------------------------------------------------------------
+    resp_proc : process
+        variable t_us       : integer   := 0;
+        variable t_start    : time      := 0 ns;
+        variable t_end      : time      := 0 ns;
+    begin
+        ----------------------------------------------------------------
+        -- Initial state
+        ----------------------------------------------------------------
+        wait for 1 ms;
+
+        ----------------------------------------------------------------
+        -- Test 2: Pulse Width 1000
+        ----------------------------------------------------------------
+        for i in 0 to 4 loop
+            -- make sure output signal goes high at some point after fully enabled
+            wait until tb_pwm_sig = '1';
+            t_start := now;
+            wait until tb_pwm_sig = '0';
+            t_end := now;
+            t_us := to_integer(unsigned(tb_pulse_us));
+            if t_end - t_start >= t_us * 1 us - TOLERANCE and t_end - t_start <= t_us * 1 us + TOLERANCE then
+                AffirmIf(TRUE,  "RAPID: TEST " & integer'image(i) & " PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
+            else
+                AffirmIf(FALSE, "RAPID: TEST " & integer'image(i) & " FAILED, Signal stayed high for incorrect duration " & time'image(t_end - t_start) & " when pulse_us = " & integer'image(t_us));
+            end if;
+            wait for 0 ns;
+
+        end loop;
+
+        wait for 1 ms;
     end process;
 
 end architecture;

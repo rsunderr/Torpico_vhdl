@@ -83,11 +83,11 @@ begin
     -- Stimulus
     --------------------------------------------------------------------
     stim_proc : process
-            variable RV         : RandomPType;
-            variable t_us       : integer   := 0;
-            variable t_start    : time      := 0 ns;
-            variable t_end      : time      := 0 ns;
-            variable t_gap      : time      := 2 ms;
+        variable RV         : RandomPType;
+        variable t_us       : integer   := 0;
+        variable t_start    : time      := 0 ns;
+        variable t_end      : time      := 0 ns;
+        variable t_gap      : time      := 2 ms;
     begin
         SetLogEnable(INFO, TRUE);
         SetLogEnable(PASSED, TRUE);
@@ -103,15 +103,15 @@ begin
         set_pulse_us(tb_pulse_us, 0);
         RV.InitSeed (RV'instance_name);
 
-        wait for 10 * CLK_PERIOD;
+        wait for 1 ms;
 
         ----------------------------------------------------------------
         -- Test 2: Pulse Width 1000
         ----------------------------------------------------------------
         tb_en <= '1';
 
-        for i in 2 to 5 loop
-            Log( "Test 2: Pulse width set to " & integer'image(t_us) & ", Iteration " & integer'image(i), INFO);
+        for i in 0 to 20 loop
+            Log("RANDOM: TEST " & integer'image(i) & ": Pulse width set to " & integer'image(t_us), INFO);
             t_us := RV.RandInt(1100, 1900);
             set_pulse_us(tb_pulse_us, t_us);
 
@@ -121,21 +121,21 @@ begin
             wait until tb_pwm_sig = '0' for t_us * 1 us + TOLERANCE;
             t_end := now;
             if t_end - t_start >= t_us * 1 us - TOLERANCE and t_end - t_start <= t_us * 1 us + TOLERANCE then
-                AffirmIf(TRUE, "TEST 2 PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
+                AffirmIf(TRUE,  "RANDOM: TEST " & integer'image(i) & " PASSED, Signal stayed high for correct duration when pulse_us = " & integer'image(t_us));
             else
-                AffirmIf(FALSE, "TEST 2 FAILED, Signal stayed high for incorrect duration when pulse_us = " & integer'image(t_us));
+                AffirmIf(FALSE, "RANDOM: TEST " & integer'image(i) & " FAILED, Signal stayed high for incorrect duration when pulse_us = " & integer'image(t_us));
             end if;
 
             wait for t_gap;
         end loop;
 
-        wait for 5 ms;
+        wait for 1 ms;
 
 
         ----------------------------------------------------------------
         -- Done
         ----------------------------------------------------------------
-        Log( "All tests completed", INFO);
+        Log("All tests completed", INFO);
 
         EndOfTestReports;
         stop;
