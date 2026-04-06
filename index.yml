@@ -1120,3 +1120,115 @@ Builds:
     ToolName:            "GHDL"
     ToolVersion:          "5.1.1"
     OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:11:12-07:00"
+    FinishTime:          "2026-04-05T16:11:14-07:00"
+    ElapsedTime:             1.659
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:24:38-07:00"
+    FinishTime:          "2026-04-05T16:24:39-07:00"
+    ElapsedTime:             1.000
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:26:13-07:00"
+    FinishTime:          "2026-04-05T16:26:14-07:00"
+    ElapsedTime:             1.072
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:35:23-07:00"
+    FinishTime:          "2026-04-05T16:35:31-07:00"
+    ElapsedTime:             8.067
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:47:20-07:00"
+    FinishTime:          "2026-04-05T16:47:25-07:00"
+    ElapsedTime:             4.669
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:48:28-07:00"
+    FinishTime:          "2026-04-05T16:48:33-07:00"
+    ElapsedTime:             4.780
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"
+  - Name:     "Torpico_vhdl_testCase_rapid"
+    Directory:           "Torpico_vhdl_testCase_rapid"
+    Status:              "FAILED"
+    Passed:              0
+    Failed:              1
+    Skipped:             0
+    Tests:               1
+    AnalyzeErrorCount:   0
+    SimulateErrorCount:  0
+    BuildErrorCode:      0
+    StartTime:           "2026-04-05T16:52:19-07:00"
+    FinishTime:          "2026-04-05T16:52:25-07:00"
+    ElapsedTime:             6.910
+    ToolName:            "GHDL"
+    ToolVersion:          "5.1.1"
+    OsvvmVersion:         "2026.01"

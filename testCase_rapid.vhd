@@ -82,6 +82,7 @@ begin
     -- Stimulus
     --------------------------------------------------------------------
     stim_proc : process
+        variable RV         : RandomPType;
         variable t_us       : integer   := 0;
         variable t_start    : time      := 0 ns;
         variable t_end      : time      := 0 ns;
@@ -98,21 +99,22 @@ begin
         tb_en <= '0';
         tb_rst_n <= '1';
         set_pulse_us(tb_pulse_us, 0);
+        RV.InitSeed (RV'instance_name);
 
         wait for 1 ms;
 
         ----------------------------------------------------------------
-        -- Test 2: Pulse Width 1000
+        -- Rapid Test
         ----------------------------------------------------------------
         t_us := 1000;
         tb_en <= '1';
 
-        for i in 0 to 4 loop
-            Log( "RAPID: TEST " & integer'image(i) & ": Pulse width set to " & integer'image(t_us), INFO);
+        for i in 0 to 49 loop
+            t_us := RV.RandInt(1100, 1900);
+            Log("RAPID: TEST " & integer'image(i) & ": Pulse width set to " & integer'image(t_us), INFO);
             set_pulse_us(tb_pulse_us, t_us);
             
-            t_us := t_us + 500;
-            wait for t_us * 0.5 us;
+            wait for RV.RandInt(t_us/2, t_us * 2) * 1 us;
 
         end loop;
         wait for 1 ms;
@@ -143,7 +145,7 @@ begin
         ----------------------------------------------------------------
         -- Test 2: Pulse Width 1000
         ----------------------------------------------------------------
-        for i in 0 to 4 loop
+        for i in 0 to 49 loop
             -- make sure output signal goes high at some point after fully enabled
             wait until tb_pwm_sig = '1';
             t_start := now;
